@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">CodesaApp</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="producto">Producto</string>
+    <string name="codigo">Código</string>
+    <string name="nombre">Nombre</string>
+    <string name="fecha_vencimiento">Fecha Vencimiento</string>
+    <string name="fecha_produccion">Fecha Produccion</string>
+    <string name="descripcion">Descripción</string>
+</resources>
