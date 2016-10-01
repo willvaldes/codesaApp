@@ -15,6 +15,8 @@ import java.util.GregorianCalendar;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnFocusChange;
+import butterknife.OnTouch;
 import co.com.codesa.codesaapp.R;
 import co.com.codesa.codesaapp.presenters.producto.IProductoPresenter;
 import co.com.codesa.codesaapp.presenters.producto.ProductoPresenter;
@@ -24,10 +26,13 @@ import co.com.codesa.codesaapp.presenters.producto.ProductoPresenter;
  */
 public class ProductoFragment extends Fragment implements IProductoView, DatePickerFragment.OnDialogDatePickerFragmentListener {
 
+    private final int DATE_PICKER_FECHA_VENCIMIENTO = 0;
+    private final int DATE_PICKER_FECHA_PRODUCCION=1;
 
     private IProductoPresenter productoPresenter;
     @Bind(R.id.txtFechVenc)
     EditText txtFechVenc;
+
 
     public ProductoFragment() {
         // Required empty public constructor
@@ -47,9 +52,18 @@ public class ProductoFragment extends Fragment implements IProductoView, DatePic
         return view;
     }
 
-    @OnClick(R.id.btnShowDatePicker)
-    public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
+
+    @OnFocusChange(R.id.txtFechVenc)
+    public void showDatePickerFechVenc(View v) {
+        DatePickerFragment newFragment = new DatePickerFragment();
+        newFragment.setCallback(this, DATE_PICKER_FECHA_VENCIMIENTO);
+        newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+    }
+
+    @OnFocusChange(R.id.txtFechProd)
+    public void showDatePickerFechProd(View v) {
+        DatePickerFragment newFragment = new DatePickerFragment();
+        newFragment.setCallback(this, DATE_PICKER_FECHA_PRODUCCION);
         newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
     }
 
@@ -60,7 +74,9 @@ public class ProductoFragment extends Fragment implements IProductoView, DatePic
     }
 
     @Override
-    public void onDateSet(int year, int monthOfYear, int dayOfMonth) {
+    public void onDateSet(int year, int monthOfYear, int dayOfMonth, int requestCode) {
+
+        switch (D)
         Calendar cal = new GregorianCalendar();
         cal.set(year, monthOfYear, dayOfMonth);
         txtFechVenc.setText(dayOfMonth + "/" + monthOfYear + "/" + year);
