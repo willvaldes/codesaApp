@@ -30,8 +30,12 @@ public class ProductoFragment extends Fragment implements IProductoView, DatePic
     private final int DATE_PICKER_FECHA_PRODUCCION=1;
 
     private IProductoPresenter productoPresenter;
+
     @Bind(R.id.txtFechVenc)
     EditText txtFechVenc;
+
+    @Bind(R.id.txtFechProd)
+    EditText txtFechProd;
 
 
     public ProductoFragment() {
@@ -53,14 +57,14 @@ public class ProductoFragment extends Fragment implements IProductoView, DatePic
     }
 
 
-    @OnFocusChange(R.id.txtFechVenc)
+    @OnClick(R.id.btnShowDatePickerFechVenc)
     public void showDatePickerFechVenc(View v) {
         DatePickerFragment newFragment = new DatePickerFragment();
         newFragment.setCallback(this, DATE_PICKER_FECHA_VENCIMIENTO);
         newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
     }
 
-    @OnFocusChange(R.id.txtFechProd)
+    @OnClick(R.id.btnShowDatePickerFechProd)
     public void showDatePickerFechProd(View v) {
         DatePickerFragment newFragment = new DatePickerFragment();
         newFragment.setCallback(this, DATE_PICKER_FECHA_PRODUCCION);
@@ -76,9 +80,18 @@ public class ProductoFragment extends Fragment implements IProductoView, DatePic
     @Override
     public void onDateSet(int year, int monthOfYear, int dayOfMonth, int requestCode) {
 
-        switch (D)
-        Calendar cal = new GregorianCalendar();
-        cal.set(year, monthOfYear, dayOfMonth);
-        txtFechVenc.setText(dayOfMonth + "/" + monthOfYear + "/" + year);
+        String fechaText = dayOfMonth + "/" + monthOfYear + "/" + year;
+
+        switch (requestCode){
+            case DATE_PICKER_FECHA_VENCIMIENTO:
+                txtFechVenc.setText(fechaText);
+                break;
+            case DATE_PICKER_FECHA_PRODUCCION:
+                txtFechProd.setText(fechaText);
+                break;
+
+        }
+
+
     }
 }
